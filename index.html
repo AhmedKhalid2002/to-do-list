@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <!-- ? ======> Favicon  -->
+    <link rel="icon" href="./images/favicon.png" />
+    <!-- ? ======> Google Fonts [Source Sans Pro + Gentium Book Plus] -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Noto+Sans+Syloti+Nagri&family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ? ======> FontAwesome Library Icons  -->
+    <link rel="stylesheet" href="./CSS/all.min.css" />
+    <!-- ? ======> Bootstrap  Icons  -->
+    <link rel="stylesheet" href="./CSS/bootstrap-icons.css" />
+    <!-- ? ======> Bootstrap Library  -->
+    <link rel="stylesheet" href="./CSS/bootstrap.min.css" />
+    <!-- ? ======> Main Stylesheet  -->
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+  <body>
+    <header class="shadow-lg fixed-top">
+      <div class="container d-flex align-items-center gap-3 p-3">
+        <h1 class="h2 m-0 text-capitalize fw-bold">
+          <a href="index.html" class="text-decoration-none">Daily Task</a>
+        </h1>
+        <div class="input-group flex-nowrap mx-auto">
+          <label class="input-group-text" id="addon-wrapping" for="searchInput"
+            ><i class="bi bi-search-heart"></i
+          ></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Seach Tasks...."
+            aria-label="search"
+            aria-describedby="addon-wrapping"
+            id="searchInput"
+            list="categories"
+          />
+          <datalist id="categories">
+            <option value="Education"></option>
+            <option value="Health"></option>
+            <option value="Finance"></option>
+            <option value="productivity"></option>
+          </datalist>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <nav class="my-5">
+        <div
+          class="container d-flex justify-content-between align-items-center"
+        >
+          <h2 class="h5 m-0 fw-bold">
+            <i class="bi bi-stars"></i> All of tasks
+          </h2>
+          <ul class="list-unstyled d-flex gap-3 m-0">
+            <ul class="layout rounded-2 d-flex list-unstyled">
+              <li class="rounded-3">
+                <i class="bi bi-grid-1x2 active" id="gridBtn"></i>
+              </li>
+              <li class="rounded-3"><i class="bi bi-list" id="barsBtn"></i></li>
+            </ul>
+            <li class="rounded-3">
+              <i
+                class="bi bi-brightness-high-fill"
+                id="mode"
+                data-mode="night"
+              ></i>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <button
+        id="newTask"
+        class="btn btn-new-task mx-auto d-flex align-items-center mb-5 fw-semibold"
+      >
+        <i class="bi bi-file-earmark-plus me-1 fs-5"></i> Add New Task
+      </button>
+
+      <div class="container columns pb-5">
+        <div class="row g-3 align-items-start">
+          <section class="to-do col-md-6 col-lg-4">
+            <div class="content">
+              <div
+                class="header d-flex justify-content-between align-items-center py-2 px-3"
+              >
+                <h2 class="m-0 text-capitalize">Next up</h2>
+                <span id="nextUpCount">0</span>
+              </div>
+              <div class="tasks p-3" id="toDo"></div>
+            </div>
+          </section>
+
+          <section class="in-progress col-md-6 col-lg-4">
+            <div class="content">
+              <div
+                class="header d-flex justify-content-between align-items-center py-2 px-3"
+              >
+                <h2 class="m-0 text-capitalize">In Progress</h2>
+                <span id="inProgressCount">0</span>
+              </div>
+              <div class="tasks p-3" id="inProgress"></div>
+            </div>
+          </section>
+
+          <section class="done col-md-6 col-lg-4">
+            <div class="content">
+              <div
+                class="header d-flex justify-content-between align-items-center py-2 px-3"
+              >
+                <h2 class="m-0 text-capitalize">Done</h2>
+                <span id="doneCount">0</span>
+              </div>
+              <div class="tasks p-3" id="done"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="my-modal bg-black bg-opacity-75 position-absolute start-0 top-0 end-0 bottom-0 d-none justify-content-center align-items-center"
+      id="modal"
+    >
+      <div class="container">
+        <div class="form-floating">
+          <select
+            class="form-select mb-3"
+            id="status"
+            aria-label="Floating label select example"
+          >
+            <option value="nextUp" selected>Next Up</option>
+            <option value="inProgress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
+          <label for="status">Select Task Status</label>
+        </div>
+
+        <div class="form-floating">
+          <select
+            class="form-select mb-3"
+            id="category"
+            aria-label="Floating label select example"
+          >
+            <option value="education" selected>Education</option>
+            <option value="health">Health & Fitness</option>
+            <option value="finance">Finance</option>
+            <option value="productivity">Productivity</option>
+          </select>
+          <label for="category">Select Category</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Task Title"
+          />
+          <label for="title">Task Title</label>
+        </div>
+
+        <p class="alert alert-danger d-none">
+          Task Title must be at least 3 characters & not ending with a space
+        </p>
+
+        <div class="form-floating mb-3">
+          <textarea
+            class="form-control"
+            id="description"
+            placeholder="Task Description"
+          ></textarea>
+          <label for="description">Task Description</label>
+        </div>
+
+        <p class="alert alert-danger d-none">
+          Description must contain between 5 and 100 characters
+        </p>
+
+        <p class="text-end">
+          <span id="remainingCounter">100</span> remaining character
+        </p>
+
+        <button class="btn btn-new-task w-100 fw-semibold" id="addBtn">
+          Add Task
+        </button>
+        <button class="btn btn-primary d-none w-100 fw-semibold" id="updateBtn">
+          Update Task
+        </button>
+      </div>
+    </div>
+
+    <footer class="fixed-bottom">
+      <div class="container py-3 text-center">
+        <p class="copyright m-0 fs-6 fw-bold">
+          Made with <i class="fa-solid fa-heart fa-beat mx-2"></i> by
+          <a
+            href="https://www.linkedin.com/in/ahmed-khalid-5166b324b/"
+            class="text-decoration-none fw-normal d-inline-block"
+            target="_blank"
+            >Ahmed Khalid</a
+          >
+        </p>
+      </div>
+    </footer>
+    <!-- ^ ======> Main Js file -->
+    <script src="js/index.js"></script>
+  </body>
+</html>
